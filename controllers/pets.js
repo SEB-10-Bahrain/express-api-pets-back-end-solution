@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
         const foundPets = await Pet.find();
         res.json({ pets: foundPets });
     } catch (error) {
-        res.json({ error: error.message });
+        res.status(500).json({ error: error.message });
     }
 });
 
@@ -33,7 +33,11 @@ router.get('/:petId', async (req, res) => {
         }
         res.json({ pet: foundPet });
     } catch (error) {
-        res.json({ error: error.message });
+        if (res.statusCode === 404) {
+            res.json({ error: error.message });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
     }
 });
 
@@ -47,22 +51,29 @@ router.delete('/:petId', async (req, res) => {
         }
         res.status(204).end();
     } catch (error) {
-        res.json({ error: error.message });
+        if (res.statusCode === 404) {
+            res.json({ error: error.message });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
     }
 });
 
 // UPDATE - PUT - /pets/:petId
 router.put('/:petId', async (req, res) => {
     try {
-        const foundPet = await Pet.findByIdAndUpdate(req.params.petId, req.body);
+        const foundPet = await Pet.findByIdAndUpdate(req.params.petId, req.body, { new: true });
         if (!foundPet) {
             res.status(404);
             throw new Error('Pet not found.');
         }
-        const updatedPet = await Pet.findById(req.params.petId);
-        res.json({ pet: updatedPet });
+        res.json({ pet: foundPet });
     } catch (error) {
-        res.json({ error: error.message });
+        if (res.statusCode === 404) {
+            res.json({ error: error.message });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
     }
 });
 
