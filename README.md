@@ -1,4 +1,4 @@
-# ![[tktk Module Name] - Solution](./internal-resources/assets/tktk-hero.png)
+# ![Express REST API - Pets - Solution](./internal-resources/assets/hero.png)
 
 ## Builder instructions
 
