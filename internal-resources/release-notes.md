@@ -1,18 +1,12 @@
 # ![Release Notes](./assets/release-notes.png)
 
-## Version 1.0 - Updates from legacy content
-
-This release modularizes the legacy [tktk previous lab name] lab solution code and provides some other minor updates detailed below.
+## Version 1.0
 
 ### Release details
 
 #### Additions
 
-
-
 #### Changes
-
-
 
 #### Removals
 

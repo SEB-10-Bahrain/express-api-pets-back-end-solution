@@ -7,7 +7,7 @@ const Pet = require('../models/pet.js');
 router.post('/', async (req, res) => {
     try {
         const createdPet = await Pet.create(req.body);
-        res.json(createdPet);
+        res.status(200).json(createdPet);
     } catch (error) {
         console.log(error.message);
     }
@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const foundPets = await Pet.find();
-        res.json(foundPets);
+        res.status(200).json(foundPets);
     } catch (error) {
         console.log(error.message);
     }
@@ -31,7 +31,7 @@ router.get('/:petId', async (req, res) => {
             res.status(404);
             throw new Error('Pet not found.');
         }
-        res.json(foundPet);
+        res.status(200).json(foundPet);
     } catch (error) {
         console.log(error.message)
     }
@@ -59,7 +59,7 @@ router.put('/:petId', async (req, res) => {
             res.status(404);
             throw new Error('Pet not found.');
         }
-        res.json(updatedPet);
+        res.status(200).json(updatedPet);
     } catch (error) {
         console.log(error.message)
     }
