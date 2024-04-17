@@ -6,10 +6,10 @@ const Pet = require('../models/pet.js');
 // CREATE - POST - /pets
 router.post('/', async (req, res) => {
     try {
-        const pet = await Pet.create(req.body);
-        res.json({ pet });
+        const createdPet = await Pet.create(req.body);
+        res.json(createdPet);
     } catch (error) {
-        res.json({ error: error.message });
+        console.log(error.message);
     }
 });
 
@@ -17,9 +17,9 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
     try {
         const foundPets = await Pet.find();
-        res.json({ pets: foundPets });
+        res.json(foundPets);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.log(error.message);
     }
 });
 
@@ -31,49 +31,37 @@ router.get('/:petId', async (req, res) => {
             res.status(404);
             throw new Error('Pet not found.');
         }
-        res.json({ pet: foundPet });
+        res.json(foundPet);
     } catch (error) {
-        if (res.statusCode === 404) {
-            res.json({ error: error.message });
-        } else {
-            res.status(500).json({ error: error.message });
-        }
+        console.log(error.message)
     }
 });
 
 // DELETE - DELETE - /pets/:petId
 router.delete('/:petId', async (req, res) => {
     try {
-        const foundPet = await Pet.findByIdAndDelete(req.params.petId);
+        const deletedPet = await Pet.findByIdAndDelete(req.params.petId);
         if (!foundPet) {
             res.status(404);
             throw new Error('Pet not found.');
         }
-        res.json({ pet: foundPet });
+        res.json(deletedPet);
     } catch (error) {
-        if (res.statusCode === 404) {
-            res.json({ error: error.message });
-        } else {
-            res.status(500).json({ error: error.message });
-        }
+        console.log(error.message)
     }
 });
 
 // UPDATE - PUT - /pets/:petId
 router.put('/:petId', async (req, res) => {
     try {
-        const foundPet = await Pet.findByIdAndUpdate(req.params.petId, req.body, { new: true });
+        const updatedPet = await Pet.findByIdAndUpdate(req.params.petId, req.body, { new: true });
         if (!foundPet) {
             res.status(404);
             throw new Error('Pet not found.');
         }
-        res.json({ pet: foundPet });
+        res.json(updatedPet);
     } catch (error) {
-        if (res.statusCode === 404) {
-            res.json({ error: error.message });
-        } else {
-            res.status(500).json({ error: error.message });
-        }
+        console.log(error.message)
     }
 });
 
