@@ -41,7 +41,7 @@ router.get('/:petId', async (req, res) => {
 router.delete('/:petId', async (req, res) => {
     try {
         const deletedPet = await Pet.findByIdAndDelete(req.params.petId);
-        if (!foundPet) {
+        if (!deletedPet) {
             res.status(404);
             throw new Error('Pet not found.');
         }
@@ -55,7 +55,7 @@ router.delete('/:petId', async (req, res) => {
 router.put('/:petId', async (req, res) => {
     try {
         const updatedPet = await Pet.findByIdAndUpdate(req.params.petId, req.body, { new: true });
-        if (!foundPet) {
+        if (!updatedPet) {
             res.status(404);
             throw new Error('Pet not found.');
         }
