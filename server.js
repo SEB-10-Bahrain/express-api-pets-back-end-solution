@@ -4,6 +4,8 @@ const express = require('express');
 const cors = require('cors')
 const app = express();
 const mongoose = require('mongoose');
+const morgan = require('morgan')
+
 
 const petRouter = require('./controllers/pets.js');
 
@@ -14,6 +16,7 @@ mongoose.connection.on('connected', () => {
 });
 app.use(cors());
 app.use(express.json());
+app.use(morgan('dev'))
 
 app.use('/pets', petRouter);
 

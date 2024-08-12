@@ -5,6 +5,7 @@ const Pet = require('../models/pet.js');
 
 // CREATE - POST - /pets
 router.post('/', async (req, res) => {
+  console.log(req.body)
     try {
       const createdPet = await Pet.create(req.body);
       res.status(201).json(createdPet);
